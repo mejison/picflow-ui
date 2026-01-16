@@ -24,7 +24,6 @@ import {
 } from '../utils/imageResizer';
 import {
   removeBgFromImage,
-  canRemoveBackground,
   type BackgroundRemovalOptions,
   type BackgroundRemovalResult
 } from '../utils/backgroundRemover';
@@ -78,7 +77,8 @@ function getCompressionSettings(level: number): { maxSizeMB: number; quality: nu
     { maxSizeMB: 1, quality: 0.65 },   // 4 - Smaller Size
     { maxSizeMB: 0.5, quality: 0.50 }  // 5 - Maximum Compression
   ];
-  return settings[level - 1] || settings[2]; // Default to Balanced
+  const setting = settings[level - 1];
+  return setting ?? { maxSizeMB: 2, quality: 0.75 }; // Default to Balanced
 }
 
 function getCompressionLabel(level: number): string {
@@ -89,7 +89,8 @@ function getCompressionLabel(level: number): string {
     'Smaller Size',
     'Maximum Compression'
   ];
-  return labels[level - 1] || labels[2];
+  const label = labels[level - 1];
+  return label ?? 'Balanced';
 }
 
 function handleDragOver(e: DragEvent) {
@@ -159,12 +160,15 @@ function removeFile(id: string) {
   const index = files.value.findIndex(f => f.id === id);
   if (index !== -1) {
     const fileItem = files.value[index];
+    if (!fileItem) return;
     
     // Add removing class for animation
     fileItem.removing = true;
     
     // Wait for animation to complete before removing
     setTimeout(() => {
+      if (!fileItem) return;
+      
       // Cleanup URLs
       if (fileItem.preview) {
         URL.revokeObjectURL(fileItem.preview);
@@ -487,7 +491,7 @@ function handleCropResult(result: { blob: Blob; url: string; width: number; heig
               </svg>
               <span class="text-sm text-emerald-700 font-medium">
                 {{ fileItem.mode === 'compress' ? 'Compressed' : fileItem.mode === 'resize' ? 'Resized' : fileItem.mode === 'crop' ? 'Cropped' : fileItem.mode === 'remove-bg' ? 'Background Removed' : 'Converted' }}
-                <span class="text-emerald-600">({{ formatBytes(fileItem.result.compressedSize || fileItem.result.newSize) }} - {{ getSavingsText(fileItem.result) }})</span>
+                <span class="text-emerald-600">({{ formatBytes(fileItem.result.blob.size) }} - {{ getSavingsText(fileItem.result) }})</span>
               </span>
             </div>
             <div v-if="fileItem.error" class="inline-flex items-center gap-2 mt-2 px-3 py-1.5 bg-red-50 border border-red-200 rounded-lg">

@@ -35,7 +35,7 @@ async function handleCrop() {
   const { canvas } = cropper.value.getResult();
   if (!canvas) return;
   
-  canvas.toBlob((blob) => {
+  canvas.toBlob((blob: Blob | null) => {
     if (!blob) return;
     
     const url = URL.createObjectURL(blob);

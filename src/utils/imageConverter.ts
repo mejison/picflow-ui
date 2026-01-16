@@ -214,7 +214,8 @@ export async function convertPdfToRaster(
     // Render PDF page to canvas
     await page.render({
       canvasContext: context,
-      viewport: viewport
+      viewport: viewport,
+      canvas: canvas
     }).promise;
     
     // Convert canvas to blob
