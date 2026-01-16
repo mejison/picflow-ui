@@ -1,0 +1,42 @@
+{
+  "name": "PicFlow - Image Converter & Editor",
+  "short_name": "PicFlow",
+  "description": "Convert, compress, resize, crop images and remove backgrounds. 100% free and private.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#6366f1",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["photo", "utilities", "productivity"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Compress Image",
+      "short_name": "Compress",
+      "description": "Compress images to reduce file size",
+      "url": "/?mode=compress",
+      "icons": []
+    },
+    {
+      "name": "Convert Image",
+      "short_name": "Convert",
+      "description": "Convert images to different formats",
+      "url": "/?mode=convert",
+      "icons": []
+    }
+  ]
+}
