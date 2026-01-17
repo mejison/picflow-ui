@@ -393,7 +393,7 @@ function handleCropResult(result: { blob: Blob; url: string; width: number; heig
     <!-- Drop Zone -->
     <div
       v-if="!hasFiles"
-      class="border-3 border-dashed rounded-3xl p-16 text-center transition-all duration-300 backdrop-blur-xl shadow-2xl"
+      class="border-3 border-dashed rounded-3xl p-16 text-center transition-all duration-300 backdrop-blur-xl shadow-2xl mb-6"
       :class="isDragging ? 'border-white bg-white/20 scale-105' : 'border-white/30 bg-white/5 hover:bg-white/10 hover:border-white/50'"
       @dragover="handleDragOver"
       @dragleave="handleDragLeave"
